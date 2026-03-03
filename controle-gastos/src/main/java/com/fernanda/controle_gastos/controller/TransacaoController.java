@@ -1,6 +1,8 @@
 package com.fernanda.controle_gastos.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +43,7 @@ public class TransacaoController {
     }
 
     @GetMapping("/resumo")
-    public String resumo(@RequestParam int mes,
+    public Map<String, BigDecimal> resumo(@RequestParam int mes,
             @RequestParam int ano) {
         return service.resumoMensal(mes, ano);
     }

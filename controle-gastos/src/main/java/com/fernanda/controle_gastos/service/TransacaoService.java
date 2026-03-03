@@ -2,7 +2,9 @@ package com.fernanda.controle_gastos.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,7 @@ public class TransacaoService {
         LocalDate fim = inicio.withDayOfMonth(inicio.lengthOfMonth());
         return repository.findByDataBetween(inicio, fim);
     }
-    public String resumoMensal(int mes, int ano){
+    public Map<String, BigDecimal> resumoMensal(int mes, int ano){
         List<Transacao> transacoes = listarPorMes(mes, ano);
         BigDecimal receitas = transacoes.stream()
             .filter(t -> t.getTipo() == TipoTransacao.RECEITA)
@@ -47,7 +49,12 @@ public class TransacaoService {
 
         BigDecimal saldo = receitas.subtract(despesas).subtract(investimentos);
 
-        return "Receitas: " + receitas + ", Despesas: " + despesas + ", Investimentos: " + investimentos + ", Saldo: " + saldo;
+        Map<String, BigDecimal> resumo = new HashMap<>();
+        resumo.put("receitas", receitas);
+        resumo.put("despesas", despesas);
+        resumo.put("investimentos", investimentos);
+        resumo.put("saldo", saldo);
+        return resumo;
 
     }
     public List<Transacao> listarTodas() {
