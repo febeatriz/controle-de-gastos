@@ -5,7 +5,7 @@ function formatarData(dataISO) {
 
 function CardInvestimentos({ total, lista, onExcluir }) {
     return (
-        <div className="bg-despesa p-5 rounded-xl mb-5 text-center bg-amber-200 max-w-2xl mx-auto">
+        <div className="bg-despesa p-5 rounded-xl mb-5 text-center bg-violet-400 max-w-2xl mx-auto">
             <h3 className="text-3xl font-bold text-black mb-3">Investimentos</h3>
             <p className="text-xl font-bold text-black mb-6">R$ {total}</p>
 
@@ -25,7 +25,7 @@ function CardInvestimentos({ total, lista, onExcluir }) {
                         </span>
 
                         <button
-                            className="bg-transparent border-0 cursor-pointer hover:text-red-300"
+                            className="bg-transparent border-0 cursor-pointer hover:text-red-600"
                             onClick={() => onExcluir(t.id)}
                         >
                             ✕

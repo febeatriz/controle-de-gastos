@@ -3,6 +3,6 @@
 @layer base {
   body {
     @apply m-0 font-sans text-white;
-    background-color: #140732;
+    background-color: oklch(20.863% 0.0468 257.125)
   }
 }
