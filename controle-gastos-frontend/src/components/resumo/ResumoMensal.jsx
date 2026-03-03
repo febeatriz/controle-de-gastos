@@ -26,7 +26,7 @@ function ResumoMensal({ resumo, transacoes }) {
         <div>
             <CardSaldo saldo={saldo} />
 
-            <div className="flex gap-16 justify-center">
+            <div className="flex flex-col sm:flex-col md:flex-row gap-4 md:gap-8 lg:gap-16 justify-center px-4 sm:px-0">
                 <CardReceitas total={receitasTotal} lista={receitas} onExcluir={excluir} />
                 <CardDespesas total={despesasTotal} lista={despesas} onExcluir={excluir} />
             </div>

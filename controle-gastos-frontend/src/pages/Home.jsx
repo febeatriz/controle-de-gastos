@@ -27,7 +27,7 @@ function Home() {
     }, [mes, ano]);
 
     return (
-        <div className="p-5">
+        <div className="p-3 sm:p-5">
             <Header mes={mes} ano={ano} setMes={setMes} setAno={setAno} />
             <ResumoMensal resumo={resumo} transacoes={transacoesMes} />
 
