@@ -10,7 +10,8 @@ function ResumoMensal({ resumo, transacoes }) {
     const partes = resumo.split(",");
     const receitasTotal = partes[0]?.split(":")[1]?.trim();
     const despesasTotal = partes[1]?.split(":")[1]?.trim();
-    const saldo = partes[2]?.split(":")[1]?.trim();
+    const investimentosTotal = partes[2]?.split(":")[1]?.trim();
+    const saldo = partes[3]?.split(":")[1]?.trim();
 
     const excluir = async (id) => {
         await deletarTransacao(id);
@@ -29,7 +30,7 @@ function ResumoMensal({ resumo, transacoes }) {
                 <CardReceitas total={receitasTotal} lista={receitas} onExcluir={excluir} />
                 <CardDespesas total={despesasTotal} lista={despesas} onExcluir={excluir} />
             </div>
-            <CardInvestimentos lista={investimentos} onExcluir={excluir} />
+            <CardInvestimentos total={investimentosTotal} lista={investimentos} onExcluir={excluir} />
         </div>
     );
 }

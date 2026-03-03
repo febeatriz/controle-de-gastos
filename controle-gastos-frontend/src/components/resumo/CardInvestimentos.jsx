@@ -5,7 +5,7 @@ function formatarData(dataISO) {
 
 function CardInvestimentos({ total, lista, onExcluir }) {
     return (
-        <div className="bg-despesa p-5 rounded-xl mb-5 text-center bg-amber-200">
+        <div className="bg-despesa p-5 rounded-xl mb-5 text-center bg-amber-200 max-w-2xl mx-auto">
             <h3 className="text-3xl font-bold text-black mb-3">Investimentos</h3>
             <p className="text-xl font-bold text-black mb-6">R$ {total}</p>
 
@@ -13,7 +13,7 @@ function CardInvestimentos({ total, lista, onExcluir }) {
                 {lista.length === 0 && <p className="text-gray-400">Nenhum investimento</p>}
 
                 {lista.map((t) => (
-                    <div key={t.id} className="grid grid-cols-[70px_1fr_120px_30px] gap-2 text-md py-1 px-2 items-center border-b border-white border-opacity-10">
+                    <div key={t.id} className="grid grid-cols-4 gap-2 text-md py-1 px-2 items-center border-b border-white border-opacity-10">
                         <span className="text-black">{formatarData(t.data)}</span>
 
                         <span className="text-black">

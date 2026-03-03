@@ -40,9 +40,14 @@ public class TransacaoService {
             .map(Transacao::getValor)
             .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        BigDecimal saldo = receitas.subtract(despesas);
+        BigDecimal investimentos =transacoes.stream()
+            .filter(t-> t.getTipo() == TipoTransacao.INVESTIMENTO)
+            .map(Transacao::getValor)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return "Receitas: " + receitas + ", Despesas: " + despesas + ", Saldo: " + saldo;
+        BigDecimal saldo = receitas.subtract(despesas).subtract(investimentos);
+
+        return "Receitas: " + receitas + ", Despesas: " + despesas + ", Investimentos: " + investimentos + ", Saldo: " + saldo;
 
     }
     public List<Transacao> listarTodas() {
