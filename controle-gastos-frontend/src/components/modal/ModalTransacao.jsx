@@ -11,7 +11,7 @@ function ModalTransacao({ fecharModal, atualizar }) {
 
     // 🔹 Buscar categorias do backend
     useEffect(() => {
-        fetch("http://localhost:8080/transacoes/categorias")
+        fetch("https://controle-de-gastos-xvl2.onrender.com/transacoes/categorias")
             .then((res) => res.json())
             .then((data) => setCategorias(data));
     }, []);
