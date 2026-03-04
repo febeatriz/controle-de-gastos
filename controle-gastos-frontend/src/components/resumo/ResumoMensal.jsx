@@ -2,10 +2,10 @@ import CardSaldo from "./CardSaldo";
 import CardReceitas from "./CardReceitas";
 import CardDespesas from "./CardDespesas";
 import CardInvestimentos from "./CardInvestimentos";
-import { deletarTransacao } from "../../services/api";
+import { deletarTransacao, buscarResumo } from "../../services/api";
+import { useEffect, useMemo, useState } from "react";
 
-function ResumoMensal({ mes, ano }) {
-
+function ResumoMensal({ mes, ano, transacoes = [] }) {
     const [resumo, setResumo] = useState({
         receitas: 0,
         despesas: 0,
@@ -18,15 +18,24 @@ function ResumoMensal({ mes, ano }) {
         window.location.reload(); // simples por enquanto
     };
 
-    const receitas = transacoes.filter(t => t.tipo === "RECEITA");
-    const despesas = transacoes.filter(t => t.tipo === "DESPESA");
-    const investimentos = transacoes.filter(t => t.tipo === "INVESTIMENTO");
+    const receitas = useMemo(
+        () => transacoes.filter((t) => t.tipo === "RECEITA"),
+        [transacoes]
+    );
+    const despesas = useMemo(
+        () => transacoes.filter((t) => t.tipo === "DESPESA"),
+        [transacoes]
+    );
+    const investimentos = useMemo(
+        () => transacoes.filter((t) => t.tipo === "INVESTIMENTO"),
+        [transacoes]
+    );
 
+    // totais (vindos do backend)
     useEffect(() => {
         (async () => {
             const data = await buscarResumo(mes, ano);
 
-            // garante números mesmo se vier "50.00" como string
             setResumo({
                 receitas: Number(data.receitas ?? 0),
                 despesas: Number(data.despesas ?? 0),
@@ -38,13 +47,18 @@ function ResumoMensal({ mes, ano }) {
 
     return (
         <div>
-            <CardSaldo saldo={saldo} />
+            <CardSaldo saldo={resumo.saldo} />
 
             <div className="flex flex-col sm:flex-col md:flex-row gap-4 md:gap-8 lg:gap-16 justify-center px-4 sm:px-0">
-                <CardReceitas total={receitasTotal} lista={receitas} onExcluir={excluir} />
-                <CardDespesas total={despesasTotal} lista={despesas} onExcluir={excluir} />
+                <CardReceitas total={resumo.receitas} lista={receitas} onExcluir={excluir} />
+                <CardDespesas total={resumo.despesas} lista={despesas} onExcluir={excluir} />
             </div>
-            <CardInvestimentos total={investimentosTotal} lista={investimentos} onExcluir={excluir} />
+
+            <CardInvestimentos
+                total={resumo.investimentos}
+                lista={investimentos}
+                onExcluir={excluir}
+            />
         </div>
     );
 }
