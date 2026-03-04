@@ -10,16 +10,31 @@ function Home() {
 
     const [mes, setMes] = useState(hoje.getMonth() + 1);
     const [ano, setAno] = useState(hoje.getFullYear());
-    const [resumo, setResumo] = useState("");
+
+    const [resumo, setResumo] = useState({
+        receitas: 0,
+        despesas: 0,
+        investimentos: 0,
+        saldo: 0,
+    });
+
     const [transacoesMes, setTransacoesMes] = useState([]);
     const [modalAberto, setModalAberto] = useState(false);
 
     const carregarResumo = async () => {
-        const resumoData = await buscarResumo(mes, ano);
-        const lista = await buscarPorMes(mes, ano);
+        const [resumoData, lista] = await Promise.all([
+            buscarResumo(mes, ano),
+            buscarPorMes(mes, ano),
+        ]);
 
-        setResumo(resumoData);
-        setTransacoesMes(lista);
+        setResumo({
+            receitas: Number(resumoData.receitas ?? 0),
+            despesas: Number(resumoData.despesas ?? 0),
+            investimentos: Number(resumoData.investimentos ?? 0),
+            saldo: Number(resumoData.saldo ?? 0),
+        });
+
+        setTransacoesMes(Array.isArray(lista) ? lista : []);
     };
 
     useEffect(() => {
@@ -29,7 +44,14 @@ function Home() {
     return (
         <div className="p-3 sm:p-5">
             <Header mes={mes} ano={ano} setMes={setMes} setAno={setAno} />
-            <ResumoMensal resumo={resumo} transacoes={transacoesMes} />
+
+            <ResumoMensal
+                mes={mes}
+                ano={ano}
+                resumo={resumo}
+                transacoes={transacoesMes}
+                onAtualizar={carregarResumo}
+            />
 
             <FloatingButton abrirModal={() => setModalAberto(true)} />
 
