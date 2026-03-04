@@ -47,18 +47,22 @@ function ResumoMensal({ mes, ano, transacoes = [] }) {
 
     return (
         <div>
-            <CardSaldo saldo={resumo.saldo} />
+            <div className="px-4 sm:px-0 max-w-[850px] mx-auto">
+                <CardSaldo saldo={resumo.saldo} />
+            </div>
 
             <div className="flex flex-col sm:flex-col md:flex-row gap-4 md:gap-8 lg:gap-16 justify-center px-4 sm:px-0">
                 <CardReceitas total={resumo.receitas} lista={receitas} onExcluir={excluir} />
                 <CardDespesas total={resumo.despesas} lista={despesas} onExcluir={excluir} />
             </div>
 
-            <CardInvestimentos
-                total={resumo.investimentos}
-                lista={investimentos}
-                onExcluir={excluir}
-            />
+            <div className="px-4 sm:px-0 max-w-[850px] mx-auto">
+                <CardInvestimentos
+                    total={resumo.investimentos}
+                    lista={investimentos}
+                    onExcluir={excluir}
+                />
+            </div>
         </div>
     );
 }
