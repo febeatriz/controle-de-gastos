@@ -48,65 +48,107 @@ function ModalTransacao({ fecharModal, atualizar }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50 px-4">
-            <div className="bg-pink-200 p-8 rounded-2xl w-full max-w-md shadow-2xl border border-white/10">
-                <h2 className="text-xl font-bold text-black mb-4">Nova Transação</h2>
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center px-4 py-6">
+            <div className="w-full max-w-md max-h-[90vh] overflow-y-auto rounded-3xl bg-pink-200 p-5 sm:p-8 shadow-2xl border border-white/10">
+                <h2 className="text-2xl sm:text-3xl font-bold text-black mb-5">
+                    Nova Transação
+                </h2>
 
-                {erro && <p className="text-red-400 mb-3">{erro}</p>}
+                {erro && (
+                    <p className="text-red-600 text-sm sm:text-base mb-4">
+                        {erro}
+                    </p>
+                )}
 
-                <form onSubmit={handleSubmit} className="flex flex-col text-black">
-                    <select
-                        value={categoria}
-                        onChange={(e) => setCategoria(e.target.value)}
-                        className="mb-3 p-2 rounded-lg bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base"
-                        required
-                    >
-                        <option value="">Selecione a categoria</option>
-                        {categorias.map((cat, index) => (
-                            <option key={index} value={cat}>
-                                {cat}
-                            </option>
-                        ))}
-                    </select>
+                <form onSubmit={handleSubmit} className="flex flex-col text-black gap-3">
+                    <div className="flex flex-col">
+                        <label className="text-sm sm:text-base font-medium mb-1">
+                            Categoria
+                        </label>
+                        <select
+                            value={categoria}
+                            onChange={(e) => setCategoria(e.target.value)}
+                            className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
+                            required
+                        >
+                            <option value="">Selecione a categoria</option>
+                            {categorias.map((cat, index) => (
+                                <option key={index} value={cat}>
+                                    {cat}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
 
-                    <input
-                        type="text"
-                        placeholder="Descrição"
-                        value={descricao}
-                        onChange={(e) => setDescricao(e.target.value)}
-                        className="mb-3 p-2 rounded-lg bg-pink-300 border-0 focus:outline-none text-sm sm:text-base"
-                    />
+                    <div className="flex flex-col">
+                        <label className="text-sm sm:text-base font-medium mb-1">
+                            Descrição
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Ex.: Mercado do mês"
+                            value={descricao}
+                            onChange={(e) => setDescricao(e.target.value)}
+                            className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
+                        />
+                    </div>
 
-                    <input
-                        type="number"
-                        placeholder="Valor"
-                        value={valor}
-                        onChange={(e) => setValor(e.target.value)}
-                        className="mb-3 p-2 rounded-lg bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base"
-                        required
-                    />
+                    <div className="flex flex-col">
+                        <label className="text-sm sm:text-base font-medium mb-1">
+                            Valor
+                        </label>
+                        <input
+                            type="number"
+                            placeholder="Ex.: 150.00"
+                            value={valor}
+                            onChange={(e) => setValor(e.target.value)}
+                            className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
+                            required
+                        />
+                    </div>
 
-                    <input
-                        type="date"
-                        value={data}
-                        onChange={(e) => setData(e.target.value)}
-                        className="mb-3 p-2 rounded-lg bg-pink-300 text-black focus:outline-none text-sm sm:text-base"
-                        required
-                    />
+                    <div className="flex flex-col">
+                        <label className="text-sm sm:text-base font-medium mb-1">
+                            Data
+                        </label>
+                        <input
+                            type="date"
+                            value={data}
+                            onChange={(e) => setData(e.target.value)}
+                            className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
+                            required
+                        />
+                    </div>
 
-                    <select value={tipo} onChange={(e) => setTipo(e.target.value)} className="mb-3 p-2 rounded-lg bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base">
-                        <option value="RECEITA">Receita</option>
-                        <option value="DESPESA">Despesa</option>
-                        <option value="INVESTIMENTO">Investimento</option>
-                    </select>
+                    <div className="flex flex-col">
+                        <label className="text-sm sm:text-base font-medium mb-1">
+                            Tipo
+                        </label>
+                        <select
+                            value={tipo}
+                            onChange={(e) => setTipo(e.target.value)}
+                            className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
+                        >
+                            <option value="RECEITA">Receita</option>
+                            <option value="DESPESA">Despesa</option>
+                            <option value="INVESTIMENTO">Investimento</option>
+                        </select>
+                    </div>
 
-
-                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 justify-between mt-2">
-                        <button type="button" onClick={fecharModal} className="bg-red-500 border-0 px-3.5 py-2 rounded-lg text-black cursor-pointer hover:opacity-80 text-sm sm:text-base order-2 sm:order-1">
-                            Cancelar
-                        </button>
-                        <button type="submit" className="bg-green-600 border-0 px-3.5 py-2 rounded-lg text-black cursor-pointer hover:opacity-80 text-sm sm:text-base order-1 sm:order-2">
+                    <div className="flex flex-col sm:flex-row gap-3 mt-3">
+                        <button
+                            type="submit"
+                            className="w-full sm:w-auto flex-1 bg-green-600 px-4 py-3 rounded-xl text-black font-medium cursor-pointer hover:opacity-80"
+                        >
                             Salvar
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={fecharModal}
+                            className="w-full sm:w-auto flex-1 bg-red-500 px-4 py-3 rounded-xl text-black font-medium cursor-pointer hover:opacity-80"
+                        >
+                            Cancelar
                         </button>
                     </div>
                 </form>

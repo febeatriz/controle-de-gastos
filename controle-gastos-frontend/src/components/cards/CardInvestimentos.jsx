@@ -63,7 +63,7 @@ function CardInvestimentos({ total, lista = [], onExcluir }) {
 
                         {descricaoAbertaId === t.id && (
                             <div className="block sm:hidden text-left px-2 pb-2">
-                                <div className="bg-red-300 rounded-lg px-3 py-2 text-xs text-black">
+                                <div className="bg-violet-300 rounded-lg px-3 py-2 text-xs text-black">
                                     {t.descricao || "Sem descrição"}
                                 </div>
                             </div>
