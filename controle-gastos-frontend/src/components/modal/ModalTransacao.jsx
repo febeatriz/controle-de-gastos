@@ -95,7 +95,7 @@ function ModalTransacao({ fecharModal, atualizar }) {
                             placeholder="Ex.: Mercado do mês"
                             value={descricao}
                             onChange={(e) => setDescricao(e.target.value)}
-                            className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
+                            className="p-3 rounded-xl bg-pink-300 text-black placeholder:text-gray-700 border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
                         />
                     </div>
 
@@ -108,7 +108,7 @@ function ModalTransacao({ fecharModal, atualizar }) {
                             placeholder="Ex.: 150.00"
                             value={valor}
                             onChange={(e) => setValor(e.target.value)}
-                            className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
+                            className="p-3 rounded-xl bg-pink-300 text-black placeholder:text-gray-700 border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
                             required
                         />
                     </div>
@@ -121,7 +121,7 @@ function ModalTransacao({ fecharModal, atualizar }) {
                             type="date"
                             value={data}
                             onChange={(e) => setData(e.target.value)}
-                            className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
+                            className="p-3 rounded-xl bg-pink-300 text-black placeholder:text-gray-700 border-0 focus:outline-none text-sm sm:text-base min-h-[48px]"
                             required
                         />
                     </div>
