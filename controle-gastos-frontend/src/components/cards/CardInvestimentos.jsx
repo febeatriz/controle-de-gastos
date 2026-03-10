@@ -22,7 +22,7 @@ function CardInvestimentos({ total, lista = [], onExcluir }) {
             <div className="mt-2 sm:mt-3">
                 {lista.length === 0 && (
                     <p className="text-gray-900 text-sm sm:text-base">
-                        Nenhuma saída
+                        Nenhum investimento
                     </p>
                 )}
 
@@ -31,30 +31,30 @@ function CardInvestimentos({ total, lista = [], onExcluir }) {
                         key={t.id}
                         className="border-b border-black border-opacity-10"
                     >
-                        <div className="grid grid-cols-[60px_1fr_32px_90px_25px] sm:grid-cols-[70px_1fr_24px_120px_30px] gap-2 items-center py-1 px-2">
+                        <div className="grid grid-cols-[55px_minmax(0,1fr)_85px_24px_24px] sm:grid-cols-[65px_minmax(0,1fr)_95px_24px_24px] gap-2 items-center py-1 px-2">
                             <span className="text-black text-xs sm:text-sm">
                                 {formatarData(t.data)}
                             </span>
 
-                            <span className="text-black text-xs sm:text-sm truncate">
+                            <span className="text-black text-xs sm:text-sm overflow-hidden text-ellipsis whitespace-nowrap text-left">
                                 {t.categoria}
+                            </span>
+
+                            <span className="text-right text-black font-bold text-xs sm:text-sm whitespace-nowrap">
+                                {formatarMoeda(t.valor)}
                             </span>
 
                             <button
                                 type="button"
                                 title={t.descricao || "Sem descrição"}
                                 onClick={() => toggleDescricao(t.id)}
-                                className="w-8 h-8 sm:w-5 sm:h-5 flex items-center justify-center justify-self-center cursor-pointer"
+                                className="w-6 h-6 flex items-center justify-center justify-self-center cursor-pointer"
                             >
                                 <span className="w-2.5 h-2.5 rounded-full bg-black opacity-50 hover:opacity-100" />
                             </button>
 
-                            <span className="text-right text-black font-bold text-xs sm:text-sm">
-                                {formatarMoeda(t.valor)}
-                            </span>
-
                             <button
-                                className="bg-transparent border-0 cursor-pointer sm:text-lg hover:text-red-700"
+                                className="w-6 h-6 flex items-center justify-center bg-transparent border-0 cursor-pointer text-black hover:text-red-700"
                                 onClick={() => onExcluir(t.id)}
                             >
                                 ✕

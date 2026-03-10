@@ -37,7 +37,7 @@ function ResumoMensal({ resumo, transacoes = [], onAtualizar }) {
                 />
             </div>
 
-            <div className="px-4 sm:px-0 max-w-[850px] mx-auto">
+            <div className="px-4 sm:px-0 max-w-[440px] mx-auto">
                 <CardInvestimentos
                     total={resumo.investimentos}
                     lista={investimentos}
