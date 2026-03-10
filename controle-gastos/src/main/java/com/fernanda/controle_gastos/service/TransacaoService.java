@@ -22,13 +22,11 @@ public class TransacaoService {
     }
 
     public void salvar(TransacaoRequestDTO dto) {
-        boolean ehDespesaRecorrente = dto.getTipo() == TipoTransacao.DESPESA &&
-                Boolean.TRUE.equals(dto.getRecorrente()) &&
-                dto.getQuantidadeMeses() != null &&
-                dto.getQuantidadeMeses() > 0;
+        boolean recorrente = dto.getRecorrente() != null && dto.getRecorrente();
+        int quantidadeMeses = dto.getQuantidadeMeses() != null ? dto.getQuantidadeMeses() : 1;
 
-        if (ehDespesaRecorrente) {
-            for (int i = 0; i < dto.getQuantidadeMeses(); i++) {
+        if (dto.getTipo() == TipoTransacao.DESPESA && recorrente) {
+            for (int i = 0; i < quantidadeMeses; i++) {
                 Transacao transacao = new Transacao();
                 transacao.setDescricao(dto.getDescricao());
                 transacao.setValor(dto.getValor());

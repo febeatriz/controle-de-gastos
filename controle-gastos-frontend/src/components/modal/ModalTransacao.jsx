@@ -38,9 +38,11 @@ function ModalTransacao({ fecharModal, atualizar }) {
                 data,
                 tipo,
                 categoria,
-                recorrente,
-                quantidadeMeses,
+                recorrente: tipo === "DESPESA" ? recorrente : false,
+                quantidadeMeses: tipo === "DESPESA" && recorrente ? Number(quantidadeMeses) : 1,
             };
+
+            console.log("ENVIANDO:", novaTransacao);
 
             await criarTransacao(novaTransacao);
             await atualizar();
