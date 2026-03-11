@@ -1,14 +1,15 @@
 package com.fernanda.controle_gastos.entity;
 
 public enum Categoria {
-    MORADIA,
-    ALIMENTACAO,
-    TRANSPORTE,
-    LAZER,
-    SAUDE,
-    EDUCACAO,
-    TRABALHO,
-    MERCADO,
-    SALÁRIO,
+    Salário,
+    Saúde,
+    Lazer,
+    Educação,
+    Transporte,
+    Alimentação,
+    Mercado,
+    Trabalho,
+    Investimento,
+    Assinaturas,
     OUTROS
 }
