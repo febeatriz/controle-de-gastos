@@ -3,7 +3,6 @@ package com.fernanda.controle_gastos.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.fernanda.controle_gastos.entity.Categoria;
 import com.fernanda.controle_gastos.entity.TipoTransacao;
 
 public class TransacaoRequestDTO {
@@ -11,7 +10,7 @@ public class TransacaoRequestDTO {
     private BigDecimal valor;
     private LocalDate data;
     private TipoTransacao tipo;
-    private Categoria categoria;
+    private Long categoriaId;
     private Boolean recorrente;
     private Integer quantidadeMeses;
 
@@ -34,8 +33,8 @@ public class TransacaoRequestDTO {
         return tipo;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public Long getCategoriaId() {
+        return categoriaId;
     }
 
     public Boolean getRecorrente() {
@@ -62,8 +61,8 @@ public class TransacaoRequestDTO {
         this.tipo = tipo;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setCategoriaId(Long categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
     public void setRecorrente(Boolean recorrente) {

@@ -8,7 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import com.fernanda.controle_gastos.dto.TransacaoRequestDTO;
-import com.fernanda.controle_gastos.entity.Categoria;
 import com.fernanda.controle_gastos.entity.Transacao;
 import com.fernanda.controle_gastos.service.TransacaoService;
 
@@ -48,10 +47,5 @@ public class TransacaoController {
     public Map<String, BigDecimal> resumo(@RequestParam int mes,
             @RequestParam int ano) {
         return service.resumoMensal(mes, ano);
-    }
-
-    @GetMapping("/categorias")
-    public Categoria[] listarCategorias() {
-        return Categoria.values();
     }
 }

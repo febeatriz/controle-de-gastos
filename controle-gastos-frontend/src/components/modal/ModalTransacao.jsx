@@ -6,7 +6,7 @@ function ModalTransacao({ fecharModal, atualizar }) {
     const [valor, setValor] = useState("");
     const [data, setData] = useState("");
     const [tipo, setTipo] = useState("RECEITA");
-    const [categoria, setCategoria] = useState("");
+    const [categoriaId, setCategoriaId] = useState("");
     const [categorias, setCategorias] = useState([]);
     const [erro, setErro] = useState("");
     const [recorrente, setRecorrente] = useState(false);
@@ -37,12 +37,10 @@ function ModalTransacao({ fecharModal, atualizar }) {
                 valor: parseFloat(valor),
                 data,
                 tipo,
-                categoria,
+                categoriaId: Number(categoriaId),
                 recorrente: tipo === "DESPESA" ? recorrente : false,
                 quantidadeMeses: tipo === "DESPESA" && recorrente ? Number(quantidadeMeses) : 1,
             };
-
-            console.log("ENVIANDO:", novaTransacao);
 
             await criarTransacao(novaTransacao);
             await atualizar();
@@ -72,15 +70,15 @@ function ModalTransacao({ fecharModal, atualizar }) {
                             Categoria
                         </label>
                         <select
-                            value={categoria}
-                            onChange={(e) => setCategoria(e.target.value)}
+                            value={categoriaId}
+                            onChange={(e) => setCategoriaId(e.target.value)}
                             className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px]"
                             required
                         >
                             <option value="">Selecione a categoria</option>
-                            {categorias.map((cat, index) => (
-                                <option key={index} value={cat}>
-                                    {cat}
+                            {categorias.map((cat) => (
+                                <option key={cat.id} value={cat.id}>
+                                    {cat.nome}
                                 </option>
                             ))}
                         </select>

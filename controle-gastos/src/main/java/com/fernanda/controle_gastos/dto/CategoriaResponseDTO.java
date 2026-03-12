@@ -1,22 +1,14 @@
-package com.fernanda.controle_gastos.entity;
+package com.fernanda.controle_gastos.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "categorias")
-public class Categoria {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CategoriaResponseDTO {
     private Long id;
-
-    @Column(name = "nome")
     private String nome;
 
-    public Categoria() {
+    public CategoriaResponseDTO() {
     }
 
-    public Categoria(String nome) {
+    public CategoriaResponseDTO(Long id, String nome) {
+        this.id = id;
         this.nome = nome;
     }
 

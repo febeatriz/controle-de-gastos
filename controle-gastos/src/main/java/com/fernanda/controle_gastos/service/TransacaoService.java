@@ -9,57 +9,65 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.fernanda.controle_gastos.dto.TransacaoRequestDTO;
+import com.fernanda.controle_gastos.entity.Categoria;
 import com.fernanda.controle_gastos.entity.TipoTransacao;
 import com.fernanda.controle_gastos.entity.Transacao;
+import com.fernanda.controle_gastos.repository.CategoriaRepository;
 import com.fernanda.controle_gastos.repository.TransacaoRepository;
 
 @Service
 public class TransacaoService {
-    private final TransacaoRepository repository;
+    private final TransacaoRepository transacaoRepository;
+    private final CategoriaRepository categoriaRepository;
 
-    public TransacaoService(TransacaoRepository repository) {
-        this.repository = repository;
+    public TransacaoService(TransacaoRepository transacaoRepository,
+            CategoriaRepository categoriaRepository) {
+        this.transacaoRepository = transacaoRepository;
+        this.categoriaRepository = categoriaRepository;
     }
 
     public void salvar(TransacaoRequestDTO dto) {
+        Categoria categoria = categoriaRepository.findById(dto.getCategoriaId())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+
         boolean recorrente = dto.getRecorrente() != null && dto.getRecorrente();
         int quantidadeMeses = dto.getQuantidadeMeses() != null ? dto.getQuantidadeMeses() : 1;
 
         if (dto.getTipo() == TipoTransacao.DESPESA && recorrente) {
             for (int i = 0; i < quantidadeMeses; i++) {
-                System.out.println("SALVANDO MÊS: " + dto.getData().plusMonths(i));
-
                 Transacao transacao = new Transacao();
                 transacao.setDescricao(dto.getDescricao());
                 transacao.setValor(dto.getValor());
                 transacao.setData(dto.getData().plusMonths(i));
                 transacao.setTipo(dto.getTipo());
-                transacao.setCategoria(dto.getCategoria());
+                transacao.setCategoria(categoria);
 
-                repository.save(transacao);
+                transacaoRepository.save(transacao);
             }
         } else {
-            System.out.println("SALVANDO APENAS UMA TRANSAÇÃO");
-            
             Transacao transacao = new Transacao();
             transacao.setDescricao(dto.getDescricao());
             transacao.setValor(dto.getValor());
             transacao.setData(dto.getData());
             transacao.setTipo(dto.getTipo());
-            transacao.setCategoria(dto.getCategoria());
+            transacao.setCategoria(categoria);
 
-            repository.save(transacao);
+            transacaoRepository.save(transacao);
         }
     }
 
     public void deletar(Long id) {
-        repository.deleteById(id);
+        transacaoRepository.deleteById(id);
     }
 
     public List<Transacao> listarPorMes(int mes, int ano) {
         LocalDate inicio = LocalDate.of(ano, mes, 1);
         LocalDate fim = inicio.withDayOfMonth(inicio.lengthOfMonth());
-        return repository.findByDataBetween(inicio, fim);
+        return transacaoRepository.findByDataBetween(inicio, fim);
+    }
+
+    public List<Transacao> listarTodas() {
+        return transacaoRepository.findAll();
     }
 
     public Map<String, BigDecimal> resumoMensal(int mes, int ano) {
@@ -89,9 +97,5 @@ public class TransacaoService {
         resumo.put("saldo", saldo);
 
         return resumo;
-    }
-
-    public List<Transacao> listarTodas() {
-        return repository.findAll();
     }
 }

@@ -37,7 +37,7 @@ function CardDespesas({ total, lista = [], onExcluir }) {
                             </span>
 
                             <span className="text-black text-xs sm:text-sm overflow-hidden text-ellipsis whitespace-nowrap text-left">
-                                {t.categoria}
+                                {t.categoria?.nome}
                             </span>
 
                             <span className="text-right text-black font-bold text-xs sm:text-sm whitespace-nowrap">
