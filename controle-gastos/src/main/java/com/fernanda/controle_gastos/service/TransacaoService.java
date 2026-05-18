@@ -5,23 +5,21 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.stereotype.Service;
 
 import com.fernanda.controle_gastos.dto.TransacaoRequestDTO;
 import com.fernanda.controle_gastos.entity.Categoria;
 import com.fernanda.controle_gastos.entity.TipoTransacao;
 import com.fernanda.controle_gastos.entity.Transacao;
-import com.fernanda.controle_gastos.repository.CategoriaRepository;
-import com.fernanda.controle_gastos.repository.TransacaoRepository;
+import com.fernanda.controle_gastos.repository.jpa.CategoriaRepository; // Import atualizado
+import com.fernanda.controle_gastos.repository.jpa.TransacaoRepository; // Import atualizado
 
 @Service
 public class TransacaoService {
     private final TransacaoRepository transacaoRepository;
     private final CategoriaRepository categoriaRepository;
 
-    public TransacaoService(TransacaoRepository transacaoRepository,
-            CategoriaRepository categoriaRepository) {
+    public TransacaoService(TransacaoRepository transacaoRepository, CategoriaRepository categoriaRepository) {
         this.transacaoRepository = transacaoRepository;
         this.categoriaRepository = categoriaRepository;
     }

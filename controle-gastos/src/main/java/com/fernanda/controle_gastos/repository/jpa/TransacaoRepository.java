@@ -1,10 +1,8 @@
-package com.fernanda.controle_gastos.repository;
+package com.fernanda.controle_gastos.repository.jpa; // Pacote atualizado
 
 import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.fernanda.controle_gastos.entity.Transacao;
 
 public interface TransacaoRepository extends JpaRepository<Transacao, Long> {

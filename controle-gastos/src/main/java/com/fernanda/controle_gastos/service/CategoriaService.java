@@ -1,11 +1,9 @@
 package com.fernanda.controle_gastos.service;
 
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.fernanda.controle_gastos.entity.Categoria;
-import com.fernanda.controle_gastos.repository.CategoriaRepository;
+import com.fernanda.controle_gastos.repository.jpa.CategoriaRepository; // Import atualizado
 
 @Service
 public class CategoriaService {
