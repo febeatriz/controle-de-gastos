@@ -11,6 +11,7 @@ function ModalTransacao({ fecharModal, atualizar }) {
     const [erro, setErro] = useState("");
     const [recorrente, setRecorrente] = useState(false);
     const [quantidadeMeses, setQuantidadeMeses] = useState(1);
+    const [carregando, setCarregando] = useState(false);
 
     useEffect(() => {
         const carregarCategorias = async () => {
@@ -31,6 +32,7 @@ function ModalTransacao({ fecharModal, atualizar }) {
 
         try {
             setErro("");
+            setCarregando(true);
 
             const novaTransacao = {
                 descricao,
@@ -48,6 +50,8 @@ function ModalTransacao({ fecharModal, atualizar }) {
         } catch (error) {
             console.error(error);
             setErro("Erro ao salvar transação.");
+        } finally {
+            setCarregando(false);
         }
     };
 
@@ -72,7 +76,8 @@ function ModalTransacao({ fecharModal, atualizar }) {
                         <select
                             value={categoriaId}
                             onChange={(e) => setCategoriaId(e.target.value)}
-                            className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px]"
+                            disabled={carregando}
+                            className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
                             required
                         >
                             <option value="">Selecione a categoria</option>
@@ -93,7 +98,8 @@ function ModalTransacao({ fecharModal, atualizar }) {
                             placeholder="Ex.: Mercado do mês"
                             value={descricao}
                             onChange={(e) => setDescricao(e.target.value)}
-                            className="p-3 rounded-xl bg-pink-300 text-black placeholder:text-gray-700 border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px]"
+                            disabled={carregando}
+                            className="p-3 rounded-xl bg-pink-300 text-black placeholder:text-gray-700 border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
                         />
                     </div>
 
@@ -106,7 +112,8 @@ function ModalTransacao({ fecharModal, atualizar }) {
                             placeholder="Ex.: 150.00"
                             value={valor}
                             onChange={(e) => setValor(e.target.value)}
-                            className="p-3 rounded-xl bg-pink-300 text-black placeholder:text-gray-700 border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px]"
+                            disabled={carregando}
+                            className="p-3 rounded-xl bg-pink-300 text-black placeholder:text-gray-700 border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
                             required
                         />
                     </div>
@@ -119,7 +126,8 @@ function ModalTransacao({ fecharModal, atualizar }) {
                             type="date"
                             value={data}
                             onChange={(e) => setData(e.target.value)}
-                            className="p-3 rounded-xl bg-pink-300 text-black placeholder:text-gray-700 border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px]"
+                            disabled={carregando}
+                            className="p-3 rounded-xl bg-pink-300 text-black placeholder:text-gray-700 border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
                             required
                         />
                     </div>
@@ -139,7 +147,8 @@ function ModalTransacao({ fecharModal, atualizar }) {
                                     setQuantidadeMeses(1);
                                 }
                             }}
-                            className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px]"
+                            disabled={carregando}
+                            className="p-3 rounded-xl bg-pink-300 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <option value="RECEITA">Receita</option>
                             <option value="DESPESA">Despesa</option>
@@ -154,6 +163,8 @@ function ModalTransacao({ fecharModal, atualizar }) {
                                     type="checkbox"
                                     checked={recorrente}
                                     onChange={(e) => setRecorrente(e.target.checked)}
+                                    disabled={carregando}
+                                    className="disabled:opacity-50 disabled:cursor-not-allowed"
                                 />
                                 Este gasto se repete?
                             </label>
@@ -167,7 +178,8 @@ function ModalTransacao({ fecharModal, atualizar }) {
                                     <select
                                         value={quantidadeMeses}
                                         onChange={(e) => setQuantidadeMeses(Number(e.target.value))}
-                                        className="p-3 rounded-xl bg-pink-200 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px]"
+                                        disabled={carregando}
+                                        className="p-3 rounded-xl bg-pink-200 text-black border-0 focus:outline-none text-sm sm:text-base min-h-[48px] h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
                                         {Array.from({ length: 12 }, (_, i) => (
                                             <option key={i + 1} value={i + 1}>
@@ -180,18 +192,47 @@ function ModalTransacao({ fecharModal, atualizar }) {
                         </div>
                     )}
 
+                    <style>{`
+                        @keyframes spin {
+                            to { transform: rotate(360deg); }
+                        }
+                        .spinner {
+                            animation: spin 1s linear infinite;
+                        }
+                    `}</style>
+
                     <div className="flex flex-col sm:flex-row gap-3 mt-3">
                         <button
                             type="submit"
-                            className="w-full sm:w-auto flex-1 bg-green-600 px-4 py-3 rounded-xl text-black font-medium cursor-pointer hover:opacity-80"
+                            disabled={carregando}
+                            className="w-full sm:w-auto flex-1 bg-green-600 px-4 py-3 rounded-xl text-black font-medium cursor-pointer hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all"
                         >
-                            Salvar
+                            {carregando && (
+                                <svg
+                                    className="spinner"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" opacity="0.2" />
+                                    <path
+                                        d="M12 2a10 10 0 0 1 10 10"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                    />
+                                </svg>
+                            )}
+                            {carregando ? "Salvando..." : "Salvar"}
                         </button>
 
                         <button
                             type="button"
                             onClick={fecharModal}
-                            className="w-full sm:w-auto flex-1 bg-red-500 px-4 py-3 rounded-xl text-black font-medium cursor-pointer hover:opacity-80"
+                            disabled={carregando}
+                            className="w-full sm:w-auto flex-1 bg-red-500 px-4 py-3 rounded-xl text-black font-medium cursor-pointer hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                         >
                             Cancelar
                         </button>

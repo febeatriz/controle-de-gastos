@@ -20,7 +20,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequestDTO dto) {
         boolean isValido = authService.validarLogin(dto.getUsername(), dto.getPassword());
-        
+
         if (isValido) {
             // Retorna status 200 OK
             return ResponseEntity.ok("Login realizado com sucesso");
@@ -28,5 +28,11 @@ public class AuthController {
             // Retorna status 401 Unauthorized
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha incorretos");
         }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout() {
+        // Retorna status 200 OK para confirmar logout
+        return ResponseEntity.ok("Logout realizado com sucesso");
     }
 }

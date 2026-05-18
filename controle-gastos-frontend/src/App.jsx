@@ -19,14 +19,22 @@ function App() {
     setIsAutenticado(true);
   };
 
+  // Função que será chamada quando o logout der certo
+  const handleLogout = () => {
+    // Limpa o localStorage
+    localStorage.removeItem("autenticado");
+    // Atualiza o estado
+    setIsAutenticado(false);
+  };
+
   // Renderização Condicional:
   // Se não estiver autenticado, renderiza a tela de Login
   if (!isAutenticado) {
     return <Login onLoginSucesso={handleLoginSucesso} />;
   }
 
-  // Se estiver autenticado, renderiza o sistema (Home)
-  return <Home />;
+  // Se estiver autenticado, renderiza o sistema (Home) e passa a função de logout
+  return <Home onLogout={handleLogout} />;
 }
 
 export default App;

@@ -5,7 +5,7 @@ import ResumoMensal from "../components/resumo/ResumoMensal";
 import FloatingButton from "../components/layout/FloatingButton";
 import ModalTransacao from "../components/modal/ModalTransacao";
 
-function Home() {
+function Home({ onLogout }) {
     const hoje = new Date();
 
     const [mes, setMes] = useState(hoje.getMonth() + 1);
@@ -55,7 +55,13 @@ function Home() {
 
     return (
         <div className="p-3 sm:p-5 min-h-screen bg-slate-900">
-            <Header mes={mes} ano={ano} setMes={setMes} setAno={setAno} />
+            <Header
+                mes={mes}
+                ano={ano}
+                setMes={setMes}
+                setAno={setAno}
+                onLogout={onLogout}
+            />
 
             {loading && (
                 <p className="text-center text-white text-lg mt-8">Carregando dados...</p>

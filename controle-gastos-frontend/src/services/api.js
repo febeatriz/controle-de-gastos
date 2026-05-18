@@ -1,5 +1,30 @@
 const API_BASE = "https://controle-de-gastos-xvl2.onrender.com";
 
+export const login = async (username, password) => {
+    const response = await fetch(`${API_BASE}/auth/login`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+    });
+
+    if (!response.ok) throw new Error("Erro ao fazer login.");
+    return response.json();
+};
+
+export const logout = async () => {
+    const response = await fetch(`${API_BASE}/auth/logout`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (!response.ok) throw new Error("Erro ao fazer logout.");
+    return response.json();
+};
+
 export const buscarTodas = async () => {
     const response = await fetch(`${API_BASE}/transacoes`);
     if (!response.ok) throw new Error("Erro ao buscar transações.");
